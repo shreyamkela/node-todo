@@ -1,6 +1,15 @@
 // Experimenting with Mongodb - Manipulating collections
 
-const MongoClient = require('mongodb').MongoClient; // Connect to the mongo db server using a mongo client
+//const MongoClient = require('mongodb').MongoClient; // Connect to the mongo db server using a mongo client. This can also be written as:
+const {MongoClient, ObjectID} = require('mongodb'); // This is object destructuring. requiring mongodb makes an object that has many properties that were defined when mongodb was made. Now 2 of these inbuilt properties are MongoClient and ObjectID that we use in our system. To extract them, we use this es6 feature. This can be visualized with the following example
+// var user = { name: 'bruce', age: 42}; // This is an example
+// var {name} = user; // bruce gets store in name variable. This is object destructuring, a feature of es6
+// console.log(name); // prints bruce
+
+// We have made an ObjectID variable with the help of object destructuring. Now we can create ObjectIDs even if we are not inserting any object. There might be atime when you need unique ids for your tasks and you can use mongodb object ids to create unique ids for each task
+// var obj = new ObjectID(); // By this we can create a new Object id, everytime we use this
+// console.log(obj);
+
 
 MongoClient.connect('mongodb://localhost:27017/TodoApp', { useNewUrlParser: true }, (err, client) => { // 'mongo://localhost:3000' is the url where our database lives, where mongodb: is the protocol. Mongo connects to server even if /TodoApp is not present in the database. Callback func fires after either the connec has succeeded or failed. err argument is used to check for error and client arg is used to actually read and write data. { useNewUrlParser: true } has been added for as newer versions of mongodb will be unable to connect if it is not used. In previous versions, below v3, client is db
     if (err) {
@@ -21,7 +30,7 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', { useNewUrlParser: true
     // });
 
     db.collection('Users').insertOne({ // insert one object. 
-        //_id: '123', // MongoDB includes a random id itself if the id is not specified here. The id is of 12 bytes. First 4 bytes are the time stamp, next 3 bytes are the computer id, next byte is the process id, and rest are counter for the record
+        //_id: '123', // If we want, we can assign an arbitrary id to this object, otherwise MongoDB itself makes a random object id if no id is specified here. Now, the object id in mongodb is of 12 bytes. First 4 bytes are the time stamp, next 3 bytes are the computer id, next byte is the process id, and rest are counter for the record. THus using ObjectId to create new id with this feature of mongodb can be useful when we need unquie ids for some task
         name: 'Clark Kent',
         age: 40,
         location: 'Metropolis'
