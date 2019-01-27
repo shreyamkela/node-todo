@@ -21,6 +21,7 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', { useNewUrlParser: true
     // });
 
     db.collection('Users').insertOne({ // insert one object. 
+        //_id: '123', // MongoDB includes a random id itself if the id is not specified here. The id is of 12 bytes. First 4 bytes are the time stamp, next 3 bytes are the computer id, next byte is the process id, and rest are counter for the record
         name: 'Clark Kent',
         age: 40,
         location: 'Metropolis'
@@ -29,6 +30,8 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', { useNewUrlParser: true
             return console.log('Unable to insert user', err);
         }
         console.log(JSON.stringify(result.ops, undefined, 2)); // Pretty printing the data saved. ops stores all the documents that were inserted
+        console.log(result.ops[0]._id); // Array of all the documents that got inserted. Only one inserted therefore [0]. Here we access the id property of the object
+        console.log(result.ops[0]._id.getTimestamp()); // Time stamp of this id
     });
 
     client.close(); // Closes the connection with the mongodb server. REMEMBER TO INCLUDE
