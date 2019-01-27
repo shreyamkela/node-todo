@@ -1,4 +1,4 @@
-// Experimenting with Mongodb - Manipulating collections
+// Experimenting with Mongodb - Inserting into collections
 
 //const MongoClient = require('mongodb').MongoClient; // Connect to the mongo db server using a mongo client. This can also be written as:
 const {MongoClient, ObjectID} = require('mongodb'); // This is object destructuring. requiring mongodb makes an object that has many properties that were defined when mongodb was made. Now 2 of these inbuilt properties are MongoClient and ObjectID that we use in our system. To extract them, we use this es6 feature. This can be visualized with the following example
@@ -31,9 +31,9 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', { useNewUrlParser: true
 
     db.collection('Users').insertOne({ // insert one object. 
         //_id: '123', // If we want, we can assign an arbitrary id to this object, otherwise MongoDB itself makes a random object id if no id is specified here. Now, the object id in mongodb is of 12 bytes. First 4 bytes are the time stamp, next 3 bytes are the computer id, next byte is the process id, and rest are counter for the record. THus using ObjectId to create new id with this feature of mongodb can be useful when we need unquie ids for some task
-        name: 'Clark Kent',
-        age: 40,
-        location: 'Metropolis'
+        name: 'Bruce Wayne',
+        age: 42,
+        location: 'Gotham'
     }, (err, result) => {
         if (err) {
             return console.log('Unable to insert user', err);
